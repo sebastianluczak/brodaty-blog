@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "embed/embed": "^4.4",
+        "knplabs/knp-disqus-bundle": "^4.1",
         "league/commonmark": "^2.3",
         "slim/psr7": "^1.5",
         "spatie/commonmark-highlighter": "^3.0",

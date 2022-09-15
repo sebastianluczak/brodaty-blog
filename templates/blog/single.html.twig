@@ -58,5 +58,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Comments -->
+        {{ knp_disqus_render('brodatydev', {'identifier': frontMatter['slug']|raw, 'limit': 10}) }}
     </div>
 {% endblock %}
