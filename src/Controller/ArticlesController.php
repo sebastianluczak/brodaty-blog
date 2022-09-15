@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Service\ArticlesService;
 use App\Service\CommonMarkService;
+use Knp\Bundle\DisqusBundle\Client\DisqusClientInterface;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class ArticlesController extends AbstractController
     {
         $page = $request->get('page') ?? 1;
         $articleListView = $articlesService->articlesList($page);
+
 
         return $this->render('blog/index.html.twig', [
             'frontMatters' => $articleListView->getFrontMatters(),
@@ -60,7 +62,7 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/{name}', name: 'app_articles_single')]
-    public function single(string $name, CommonMarkService $converter, ArticlesService $articlesService): Response
+    public function single(string $name, ArticlesService $articlesService): Response
     {
         $result = $articlesService->getBySlug($name);
 
