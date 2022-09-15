@@ -7,6 +7,7 @@ use App\Service\ArticlesService;
 use App\Service\CommonMarkService;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Finder\Finder;
@@ -17,28 +18,34 @@ class ArticlesController extends AbstractController
     const ARTICLES_DIRECTORY = '../resources/articles/';
 
     #[Route('/', name: 'app_articles_list')]
-    public function index(ArticlesService $articlesService): Response
+    public function index(ArticlesService $articlesService, Request $request): Response
     {
-        $articleListView = $articlesService->articlesList();
+        $page = $request->get('page') ?? 1;
+        $articleListView = $articlesService->articlesList($page);
 
         return $this->render('blog/index.html.twig', [
             'frontMatters' => $articleListView->getFrontMatters(),
             'featured' => $articleListView->getPromoted(),
             'categories' => $articleListView->getCategories(),
-            'side' => $articleListView->getSide()
+            'side' => $articleListView->getSide(),
+            'pages' => $articleListView->pages(),
+            'currentPage' => $page
         ]);
     }
 
     #[Route('/tag/{tag}', name: 'app_articles_by_tag')]
-    public function indexByTag(string $tag, ArticlesService $articlesService): Response
+    public function indexByTag(string $tag, ArticlesService $articlesService, Request $request): Response
     {
+        $page = $request->get('page') ?? 1;
         $articleListView = $articlesService->articlesListWithTag($tag);
 
         return $this->render('blog/index.html.twig', [
             'frontMatters' => $articleListView->getFrontMatters(),
             'featured' => $articleListView->getPromoted(),
             'categories' => $articleListView->getCategories(),
-            'side' => $articleListView->getSide()
+            'side' => $articleListView->getSide(),
+            'pages' => $articleListView->pages(),
+            'currentPage' => $page
         ]);
     }
 

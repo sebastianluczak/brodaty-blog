@@ -66,4 +66,20 @@ class ArticleListView
     {
         return $this->side;
     }
+
+    public function page(int $page, int $limit = 6): self
+    {
+        $fm = $this->getFrontMatters();
+        $ac = array_chunk($fm, $limit);
+        $this->frontMatters = $ac[$page-1]??[];
+
+        return $this;
+    }
+
+    public function pages(int $limit = 6): int
+    {
+        $fm = $this->getFrontMatters();
+
+        return count(array_chunk($fm, $limit)) + 1;
+    }
 }

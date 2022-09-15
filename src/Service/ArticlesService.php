@@ -50,7 +50,7 @@ class ArticlesService
         }
     }
 
-    public function articlesList(): ArticleListView
+    public function articlesList(int $page = 1): ArticleListView
     {
         $articleListView = new ArticleListView();
 
@@ -82,10 +82,10 @@ class ArticlesService
             }
         }
 
-        return $articleListView;
+        return $articleListView->page($page);
     }
 
-    public function articlesListWithTag(string $tagName): ArticleListView
+    public function articlesListWithTag(string $tagName, int $page = 1): ArticleListView
     {
         $articleListView = new ArticleListView();
 
@@ -119,7 +119,7 @@ class ArticlesService
             }
         }
 
-        return $articleListView;
+        return $articleListView->page($page);
     }
 
     public function clearCache(): void
