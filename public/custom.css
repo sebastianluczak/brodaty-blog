@@ -1,0 +1,54 @@
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+img {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.permalink {
+    text-decoration: none;
+}
+
+code {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.shiki {
+    padding: 10px;
+    border: #2d536a 3px;
+}
+
+.page-header {
+    background-image: url("https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format");
+    height: auto;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.external-link {
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 1px; !important;
+}
+
+.external-link::after {
+    content: "🔗 ";
+}
+
+.table-of-contents::before {
+    content: "🗎 ToC";
+}
+
+.table-of-contents {
+    float: right;
+    list-style: none;
+}
+
+.card-img-top {
+    max-height: 250px;
+    object-fit: cover;
+}

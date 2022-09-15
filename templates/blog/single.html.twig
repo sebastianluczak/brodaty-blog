@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-12">
+            <!-- Featured blog post-->
+            <div class="card mb-4">
+                <a href="#!"><img class="card-img-top" src="{{ frontMatter['picture']|raw }}" alt="..." /></a>
+                <div class="card-body">
+                    <div class="small text-muted">{{ frontMatter['date']|raw }}</div>
+                    <h2 class="card-title">{{ frontMatter['title']|raw }}</h2>
+                    <p class="card-text">{{ article|raw }}</p>
+                </div>
+            </div>
+            {#<!-- Read more / featured -->
+            <div class="row">
+                {% for proposedArticle in proposedArticles %}
+                <div class="col-lg-6">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">{{ proposedArticle['date'] }}</div>
+                            <h2 class="card-title h4">Post Title</h2>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+                            <a class="btn btn-primary" href="#!">Read more →</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>#}
+
+        </div>
+
+        <!-- Side widgets-->
+        <div class="col-lg-12">
+            <!-- Categories widget-->
+            <div class="card mb-1">
+                <div class="card-header">Categories & Links</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                {% for tag in frontMatter['tags'] %}
+                                    <li><a href="/tag/{{ tag }}">{{ tag }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                {% for link in frontMatter['links'] %}
+                                    <li><a href="{{ link }}">{{ link }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
