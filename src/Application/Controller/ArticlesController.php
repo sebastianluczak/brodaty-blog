@@ -1,18 +1,13 @@
 <?php
 
-// src/Controller/LuckyController.php
-namespace App\Controller;
+namespace App\Application\Controller;
 
-use App\Service\ArticlesService;
-use App\Service\CommonMarkService;
-use Knp\Bundle\DisqusBundle\Client\DisqusClientInterface;
-use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
+use App\Application\ArticlesService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Finder\Finder;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticlesController extends AbstractController
 {

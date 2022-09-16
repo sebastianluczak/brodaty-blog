@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
-namespace App\Service;
+namespace App\Application;
 
 use App\Domain\Article\ArticleListView;
+use App\Infrastructure\CommonMarkService;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Output\RenderedContentInterface;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Finder\Finder;
 
 class ArticlesService
 {

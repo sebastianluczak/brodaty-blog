@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Infrastructure;
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
