@@ -13,6 +13,7 @@ use Symfony\Component\Finder\Finder;
 class ArticlesService
 {
     const ARTICLES_DIRECTORY = '../resources/articles/';
+
     private MarkdownConverter $markdownConverter;
     private FilesystemAdapter $cache;
 
@@ -133,7 +134,7 @@ class ArticlesService
 
         if (!$htmlContentConverted->isHit()) {
             $htmlContentConverted->set($this->markdownConverter->convert(file_get_contents($filePath)));
-            $htmlContentConverted->expiresAfter(3600);
+            $htmlContentConverted->expiresAfter(60 * 60 * 24);
             $this->cache->save($htmlContentConverted);
         }
 

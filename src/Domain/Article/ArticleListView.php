@@ -4,7 +4,6 @@ namespace App\Domain\Article;
 
 use App\Domain\Category\CategoryListView;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
-use League\CommonMark\Output\RenderedContentInterface;
 
 class ArticleListView
 {

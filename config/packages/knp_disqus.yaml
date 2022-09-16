@@ -1,3 +1,0 @@
-# config/packages/knp_disqus.yaml
-knp_disqus:
-  api_key: '%env(DISQUS_API_KEY)%'

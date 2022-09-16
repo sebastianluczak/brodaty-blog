@@ -42,7 +42,7 @@ class ArticlesController extends AbstractController
             'categories' => $articleListView->getCategories(),
             'side' => $articleListView->getSide(),
             'pages' => $articleListView->pages(),
-            'currentPage' => $page
+            'currentPage' => $page,
         ]);
     }
 
@@ -59,8 +59,11 @@ class ArticlesController extends AbstractController
     #[Route('/{name}', name: 'app_articles_single')]
     public function single(string $name, ArticlesService $articlesService): Response
     {
-        $result = $articlesService->getBySlug($name);
+        $article = $articlesService->getBySlug($name);
 
-        return $this->render('blog/single.html.twig', ['article' => $result->getContent(), 'frontMatter' => $result->getFrontMatter()]);
+        return $this->render('blog/single.html.twig', [
+            'article' => $article->getContent(),
+            'frontMatter' => $article->getFrontMatter(),
+        ]);
     }
 }

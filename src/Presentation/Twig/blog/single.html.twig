@@ -6,22 +6,25 @@
         <div class="col-lg-12">
             <!-- Featured blog post-->
             <div class="card mb-4">
-                <a href="#!"><img class="card-img-top" src="{{ frontMatter['picture']|raw }}" alt="..." /></a>
+                <a href="/{{ frontMatter['slug']|raw }}"><img class="card-img-top" src="{{ frontMatter['picture']|raw }}" alt="..." /></a>
                 <div class="card-body">
-                    <div class="small text-muted">{{ frontMatter['date']|raw }}</div>
+                    <div class="small text-muted">
+                        <div class="btn btn-sm btn-secondary">{{ frontMatter['date']|raw }}</div>
+                    </div>
+
                     <h2 class="card-title">{{ frontMatter['title']|raw }}</h2>
                     <p class="card-text">{{ article|raw }}</p>
                 </div>
             </div>
-            {#<!-- Read more / featured -->
-            <div class="row">
-                {% for proposedArticle in proposedArticles %}
+            <!-- Read more / recommended -->
+            {#<div class="row">
+                {% for recommendedArticle in recommendedArticles %}
                 <div class="col-lg-6">
                     <!-- Blog post-->
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <a href="#!"><img class="card-img-top" src="{{ recommendedArticle.picture }}" alt="..." /></a>
                         <div class="card-body">
-                            <div class="small text-muted">{{ proposedArticle['date'] }}</div>
+                            <div class="small text-muted">{{ recommendedArticle.date }}</div>
                             <h2 class="card-title h4">Post Title</h2>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                             <a class="btn btn-primary" href="#!">Read more →</a>
