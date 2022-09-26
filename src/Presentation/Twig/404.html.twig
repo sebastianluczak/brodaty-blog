@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="alert alert-danger"><h1>404 - Not found.</h1></div>
+        <p>There's no {{ app.request.pathInfo }} found on the server.</p>
+        <p>These are not the droid you are looking for.</p>
+    </div>
+{% endblock %}

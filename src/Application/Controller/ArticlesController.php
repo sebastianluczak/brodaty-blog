@@ -3,6 +3,7 @@
 namespace App\Application\Controller;
 
 use App\Application\ArticlesService;
+use App\Domain\Article\ArticleNotFoundException;
 use App\Domain\Article\CachedArticleInterface;
 use App\Infrastructure\Cache\CacheService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,14 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticlesController extends AbstractController
 {
-    const ARTICLES_DIRECTORY = '../resources/articles/';
-
     #[Route('/', name: 'app_articles_list')]
     public function index(ArticlesService $articlesService, Request $request): Response
     {
         $page = $request->get('page') ?? 1;
         $articleListView = $articlesService->articlesList($page);
-
 
         return $this->render('blog/index.html.twig', [
             'frontMatters' => $articleListView->getFrontMatters(),
@@ -68,7 +66,11 @@ class ArticlesController extends AbstractController
     #[Route('/{name}', name: 'app_articles_single')]
     public function single(string $name, ArticlesService $articlesService): Response
     {
-        $article = $articlesService->getBySlug($name);
+        try {
+            $article = $articlesService->getBySlug($name);
+        } catch (ArticleNotFoundException $e) {
+            return $this->render('404.html.twig');
+        }
 
         return $this->render('blog/single.html.twig', [
             'article' => $article->getContent(),

@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\Domain\Article\ArticleListView;
+use App\Domain\Article\ArticleNotFoundException;
 use App\Infrastructure\Cache\CacheService;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use Psr\Log\LoggerAwareInterface;
@@ -19,6 +20,9 @@ class ArticlesService implements LoggerAwareInterface
     {
     }
 
+    /**
+     * @throws ArticleNotFoundException
+     */
     public function getBySlug(string $slug): RenderedContentWithFrontMatter
     {
         // VO for article
@@ -41,6 +45,8 @@ class ArticlesService implements LoggerAwareInterface
                 }
             }
         }
+
+        throw new ArticleNotFoundException;
     }
 
     public function articlesList(int $page = 1): ArticleListView
