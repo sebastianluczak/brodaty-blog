@@ -57,6 +57,14 @@ class ArticlesController extends AbstractController
         return new JsonResponse(['message' => 'cache cleared', 'time' => microtime(true) - $then]);
     }
 
+    #[Route('/exception', name: 'app_articles_excepion')]
+    public function exception(): JsonResponse
+    {
+        throw new \RuntimeException('Example exception.');
+
+        return new JsonResponse(['message' => 'cache cleared', 'time' => microtime(true) - $then]);
+    }
+
     #[Route('/{name}', name: 'app_articles_single')]
     public function single(string $name, ArticlesService $articlesService): Response
     {

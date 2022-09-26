@@ -9,6 +9,8 @@
         "ext-iconv": "*",
         "embed/embed": "^4.4",
         "league/commonmark": "^2.3",
+        "sentry/sdk": "^3.2",
+        "sentry/sentry-symfony": "^4.3",
         "slim/psr7": "^1.5",
         "spatie/commonmark-highlighter": "^3.0",
         "spatie/commonmark-shiki-highlighter": "^2.1",
