@@ -3,6 +3,8 @@
 namespace App\Application\Controller;
 
 use App\Application\ArticlesService;
+use App\Domain\Article\CachedArticleInterface;
+use App\Infrastructure\Cache\CacheService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,11 +49,10 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/clear_cache', name: 'app_articles_clear_cache')]
-    public function clearCache(ArticlesService $articlesService): JsonResponse
+    public function clearCache(CacheService $cacheService): JsonResponse
     {
         $then = microtime(true);
-        $articlesService->clearCache();
-        $articlesService->initCache();
+        $cacheService->clearCache(CachedArticleInterface::class);
 
         return new JsonResponse(['message' => 'cache cleared', 'time' => microtime(true) - $then]);
     }

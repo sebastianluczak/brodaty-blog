@@ -3,41 +3,33 @@ declare(strict_types=1);
 namespace App\Application;
 
 use App\Domain\Article\ArticleListView;
-use App\Infrastructure\CommonMarkService;
+use App\Infrastructure\Cache\CacheService;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
-use League\CommonMark\MarkdownConverter;
-use League\CommonMark\Output\RenderedContentInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Finder\Finder;
 
-class ArticlesService
+class ArticlesService implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     const ARTICLES_DIRECTORY = '../resources/articles/';
 
-    private MarkdownConverter $markdownConverter;
-    private FilesystemAdapter $cache;
-
-    public function __construct(readonly protected CommonMarkService $converter)
+    public function __construct(readonly protected CacheService $cacheService)
     {
-        $this->markdownConverter = $converter->init();
-        $this->cache = new FilesystemAdapter();
     }
 
     public function getBySlug(string $slug): RenderedContentWithFrontMatter
     {
-        $finder = new Finder();
-        // find all files in the current directory
-        $articles = $finder->files()->in(self::ARTICLES_DIRECTORY);
         // VO for article
-        $articlesConverted = [];
+        $articles = $this->getArticlesFinder();
+
         // check if there are any search results
         if ($articles->hasResults()) {
             foreach ($articles as $article) {
                 // cache here
-                $result = $this->getHtmlFromCacheForFile($article->getRealPath());
-                if (!$result) {
-                    $result = $this->markdownConverter->convert(file_get_contents($article->getRealPath()));
-                }
+                $result = $this->cacheService->getFromCache($article->getRealPath());
+
                 // Grab the front matter:
                 $frontMatter = null;
                 if ($result instanceof RenderedContentWithFrontMatter) {
@@ -54,19 +46,15 @@ class ArticlesService
     public function articlesList(int $page = 1): ArticleListView
     {
         $articleListView = new ArticleListView();
-
-        $finder = new Finder();
-        // find all files in the current directory
-        $articles = $finder->files()->in(self::ARTICLES_DIRECTORY);
         // VO for article
+        $articles = $this->getArticlesFinder();
+
         // check if there are any search results
         if ($articles->hasResults()) {
             foreach ($articles as $article) {
                 // cache here
-                $result = $this->getHtmlFromCacheForFile($article->getRealPath());
-                if (!$result) {
-                    $result = $this->markdownConverter->convert(file_get_contents($article->getRealPath()));
-                }
+                $result = $this->cacheService->getFromCache($article->getRealPath());
+
                 // Grab the front matter:
                 if ($result instanceof RenderedContentWithFrontMatter) {
                     $articleListView->addFrontMatter($result->getFrontMatter());
@@ -89,19 +77,15 @@ class ArticlesService
     public function articlesListWithTag(string $tagName, int $page = 1): ArticleListView
     {
         $articleListView = new ArticleListView();
-
-        $finder = new Finder();
-        // find all files in the current directory
-        $articles = $finder->files()->in(self::ARTICLES_DIRECTORY);
         // VO for article
+        $articles = $this->getArticlesFinder();
+
         // check if there are any search results
         if ($articles->hasResults()) {
             foreach ($articles as $article) {
                 // cache here
-                $result = $this->getHtmlFromCacheForFile($article->getRealPath());
-                if (!$result) {
-                    $result = $this->markdownConverter->convert(file_get_contents($article->getRealPath()));
-                }
+                $result = $this->cacheService->getFromCache($article->getRealPath());
+
                 // Grab the front matter:
                 if ($result instanceof RenderedContentWithFrontMatter) {
                     if (in_array($tagName, $result->getFrontMatter()['tags'])) {
@@ -123,27 +107,10 @@ class ArticlesService
         return $articleListView->page($page);
     }
 
-    public function clearCache(): void
+    public function getArticlesFinder(): Finder
     {
-        $this->cache->clear();
-    }
-
-    private function getHtmlFromCacheForFile(string $filePath): RenderedContentInterface|null
-    {
-        $htmlContentConverted = $this->cache->getItem('article_' . $filePath);
-
-        if (!$htmlContentConverted->isHit()) {
-            $htmlContentConverted->set($this->markdownConverter->convert(file_get_contents($filePath)));
-            $htmlContentConverted->expiresAfter(60 * 60 * 24);
-            $this->cache->save($htmlContentConverted);
-        }
-
-        return $htmlContentConverted->get();
-    }
-
-    public function initCache(): void
-    {
-        // todo better way
-        $this->articlesList();
+        $finder = new Finder();
+        // find all files in the current directory
+        return $finder->files()->in(self::ARTICLES_DIRECTORY);
     }
 }
