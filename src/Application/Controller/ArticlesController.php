@@ -18,10 +18,10 @@ class ArticlesController extends AbstractController
     public function index(ArticlesService $articlesService, Request $request): Response
     {
         $page = $request->get('page') ?? 1;
-        $articleListView = $articlesService->articlesList($page);
+        $articleListView = $articlesService->getAll($page);
 
         return $this->render('blog/index.html.twig', [
-            'frontMatters' => $articleListView->getFrontMatters(),
+            'articles' => $articleListView->getArticles(),
             'featured' => $articleListView->getPromoted(),
             'categories' => $articleListView->getCategories(),
             'side' => $articleListView->getSide(),
@@ -34,33 +34,16 @@ class ArticlesController extends AbstractController
     public function indexByTag(string $tag, ArticlesService $articlesService, Request $request): Response
     {
         $page = $request->get('page') ?? 1;
-        $articleListView = $articlesService->articlesListWithTag($tag);
+        $articleListView = $articlesService->getAllWithTag($tag, $page);
 
         return $this->render('blog/index.html.twig', [
-            'frontMatters' => $articleListView->getFrontMatters(),
+            'articles' => $articleListView->getArticles(),
             'featured' => $articleListView->getPromoted(),
             'categories' => $articleListView->getCategories(),
             'side' => $articleListView->getSide(),
             'pages' => $articleListView->pages(),
             'currentPage' => $page,
         ]);
-    }
-
-    #[Route('/clear_cache', name: 'app_articles_clear_cache')]
-    public function clearCache(CacheService $cacheService): JsonResponse
-    {
-        $then = microtime(true);
-        $cacheService->clearCache(CachedArticleInterface::class);
-
-        return new JsonResponse(['message' => 'cache cleared', 'time' => microtime(true) - $then]);
-    }
-
-    #[Route('/exception', name: 'app_articles_excepion')]
-    public function exception(): JsonResponse
-    {
-        throw new \RuntimeException('Example exception.');
-
-        return new JsonResponse(['message' => 'cache cleared', 'time' => microtime(true) - $then]);
     }
 
     #[Route('/{name}', name: 'app_articles_single')]
@@ -73,7 +56,7 @@ class ArticlesController extends AbstractController
         }
 
         return $this->render('blog/single.html.twig', [
-            'article' => $article->getContent(),
+            'article' => $article->getHtmlContent(),
             'frontMatter' => $article->getFrontMatter(),
         ]);
     }

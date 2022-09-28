@@ -9,8 +9,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:clear')]
-class RebuiltArticlesCommand extends Command
+#[AsCommand(name: 'app:cache:populate')]
+class CacheAllArticlesCommand extends Command
 {
     public function __construct(
         readonly protected ArticlesService $articlesService,
@@ -22,8 +22,14 @@ class RebuiltArticlesCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln("Test");
-        //$cachedArticle = $this->cacheService->getItem('test');
+        $output->writeln("Cache Store");
+        $filePath = 'resources/articles/20220709_slug.md';
+        //dump($this->articlesService->getAll());
+        //$cachedArticle = $this->cacheService->storeItem($filePath);
+        //$output->writeln("cache write suceeded, trying to read");
+        //$cachedArticleCopy = $this->cacheService->getItem($filePath);
+
+        //dump($cachedArticle->getFrontMatter() == $cachedArticleCopy->getFrontMatter());
 
         return Command::SUCCESS;
     }
