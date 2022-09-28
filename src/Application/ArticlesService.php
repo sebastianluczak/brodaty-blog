@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application;
 
+use App\Application\Exception\ArticleNotFoundException;
+use App\Application\Exception\CachedArticleNotFoundException;
 use App\Domain\Article\ArticleInterface;
 use App\Domain\Article\ArticleListView;
-use App\Domain\Article\ArticleNotFoundException;
-use App\Domain\Article\CachedArticleNotFoundException;
 use App\Infrastructure\Cache\CacheService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;

@@ -3,7 +3,7 @@
 namespace App\Application\Controller;
 
 use App\Application\ArticlesService;
-use App\Domain\Article\ArticleNotFoundException;
+use App\Application\Exception\ArticleNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

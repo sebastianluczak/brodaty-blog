@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Cache;
 
+use App\Application\Exception\CachedArticleNotFoundException;
 use App\Domain\Article\ArticleInterface;
 use App\Domain\Article\CachedArticle;
-use App\Domain\Article\CachedArticleNotFoundException;
 use App\Infrastructure\CommonMarkService;
 use League\CommonMark\MarkdownConverter;
 use Psr\Log\LoggerAwareInterface;
