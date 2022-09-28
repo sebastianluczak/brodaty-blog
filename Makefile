@@ -13,7 +13,7 @@ help: ## Outputs this help screen
 
 ## —— PHP 💻 ———————————————————————————————————————————————————————————————
 phpunit: ## Fires PHP Unit tests
-	@$(eval c=bin/phpunit tests/UnitTests.php)
+	@$(eval c=bin/phpunit)
 	@$(PHP) $(c)
 
 cs-fix: ## Runs PHP-CS-Fixer against ./src

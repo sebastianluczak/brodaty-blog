@@ -3,22 +3,22 @@
 namespace App\Tests;
 
 use App\Application\ArticlesService;
+use App\Domain\Article\Article;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UnitTest extends KernelTestCase
 {
-    public function testArticlesNotEmpty()
+    public function testDomainArticle()
     {
-        // (1) boot the Symfony kernel
-        self::bootKernel();
+        $stub = $this->createStub(Article::class);
+        $stub->method('getFrontMatter')
+            ->willReturn(['title' => 'someTitle']);
 
-        // (2) use static::getContainer() to access the service container
-        $container = static::getContainer();
+        $this->assertSame('someTitle', $stub->getFrontMatter()['title']);
 
-        /** @var ArticlesService $articlesService */
-        $articlesService = $container->get(ArticlesService::class);
-        $articles = $articlesService->getAll();
+        $stub->method('getHtmlContent')
+            ->willReturn("some html string");
 
-        $this->assertNotEmpty($articles->getArticles());
+        $this->assertSame('some html string', $stub->getHtmlContent());
     }
 }
