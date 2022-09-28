@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Domain\Category;
 
 class CategoryListView
@@ -19,21 +21,15 @@ class CategoryListView
             $this->tags[] = $tag;
             $this->counts[$tag] = 1;
         } else {
-            $this->counts[$tag] += 1;
+            ++$this->counts[$tag];
         }
     }
 
-    /**
-     * @return array
-     */
     public function getTags(): array
     {
         return $this->tags;
     }
 
-    /**
-     * @return array
-     */
     public function getCounts(): array
     {
         return $this->counts;

@@ -35,10 +35,6 @@ class CommonMarkService
         return new MarkdownConverter($environment);
     }
 
-    /**
-     * @param array $config
-     * @return Environment
-     */
     protected function getEnvironment(array $config): Environment
     {
         $environment = new Environment($config);
@@ -55,15 +51,13 @@ class CommonMarkService
         $environment->addExtension(new HeadingPermalinkExtension());
         $environment->addExtension(new TableOfContentsExtension());
         $environment->addExtension(new HighlightCodeExtension('slack-dark'));
+
         return $environment;
     }
 
-    /**
-     * @return array
-     */
     protected function getConfig(): array
     {
-    // Define your configuration, if needed
+        // Define your configuration, if needed
         return [
             'commonmark' => [
                 'enable_em' => true,
@@ -75,7 +69,7 @@ class CommonMarkService
             'default_attributes' => [
                 Heading::class => [
                     'class' => static function (Heading $node) {
-                        if ($node->getLevel() === 1) {
+                        if (1 === $node->getLevel()) {
                             return 'title-main';
                         } else {
                             return null;
@@ -126,7 +120,7 @@ class CommonMarkService
                 'min_heading_level' => 1,
                 'max_heading_level' => 6,
                 'title' => 'Permalink',
-                'symbol' => "🦄 ",
+                'symbol' => '🦄 ',
                 'aria_hidden' => true,
             ],
             'table_of_contents' => [

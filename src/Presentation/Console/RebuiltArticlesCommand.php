@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Presentation\Console;
 
 use App\Application\ArticlesService;
@@ -15,15 +17,14 @@ class RebuiltArticlesCommand extends Command
     public function __construct(
         readonly protected ArticlesService $articlesService,
         readonly protected CacheService $cacheService
-    )
-    {
+    ) {
         parent::__construct($this->getName());
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln("Test");
-        //$cachedArticle = $this->cacheService->getItem('test');
+        $output->writeln('Test');
+        // $cachedArticle = $this->cacheService->getItem('test');
 
         return Command::SUCCESS;
     }

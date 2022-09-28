@@ -6,5 +6,4 @@ namespace App\Domain\Article;
 
 class CachedArticleNotFoundException extends \Exception
 {
-
 }

@@ -4,10 +4,7 @@ namespace App\Application\Controller;
 
 use App\Application\ArticlesService;
 use App\Domain\Article\ArticleNotFoundException;
-use App\Domain\Article\CachedArticleInterface;
-use App\Infrastructure\Cache\CacheService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +23,7 @@ class ArticlesController extends AbstractController
             'categories' => $articleListView->getCategories(),
             'side' => $articleListView->getSide(),
             'pages' => $articleListView->pages(),
-            'currentPage' => $page
+            'currentPage' => $page,
         ]);
     }
 

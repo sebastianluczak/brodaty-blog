@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Domain\Article;
 
 use App\Domain\Category\CategoryListView;
@@ -59,7 +61,7 @@ class ArticleListView implements PaginatedViewInterface
     {
         $articles = $this->getArticles();
         $ac = array_chunk($articles, $limit);
-        $this->articles = $ac[$page-1]??[];
+        $this->articles = $ac[$page - 1] ?? [];
 
         return $this;
     }
@@ -73,10 +75,10 @@ class ArticleListView implements PaginatedViewInterface
 
     public function addArticle(ArticleInterface $item)
     {
-        if ($item->getFrontMatter()['promoted'] === "main") {
+        if ('main' === $item->getFrontMatter()['promoted']) {
             $this->setPromoted($item);
         }
-        if ($item->getFrontMatter()['promoted'] === "side") {
+        if ('side' === $item->getFrontMatter()['promoted']) {
             $this->addSide($item);
         }
         foreach ($item->getFrontMatter()['tags'] as $tag) {
@@ -86,9 +88,6 @@ class ArticleListView implements PaginatedViewInterface
         $this->articles[] = $item;
     }
 
-    /**
-     * @return array
-     */
     public function getArticles(): array
     {
         return $this->articles;

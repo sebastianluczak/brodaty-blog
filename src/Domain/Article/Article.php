@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Domain\Article;
 
 class Article implements ArticleInterface
@@ -12,9 +14,6 @@ class Article implements ArticleInterface
         return $this->frontMatter;
     }
 
-    /**
-     * @return string
-     */
     public function getHtmlContent(): string
     {
         return $this->htmlContent;

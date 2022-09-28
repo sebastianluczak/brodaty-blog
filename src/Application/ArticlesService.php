@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Application;
 
 use App\Domain\Article\ArticleInterface;
@@ -15,12 +17,12 @@ use Symfony\Component\Finder\SplFileInfo;
 class ArticlesService implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
-    const ARTICLES_DIRECTORY = '/resources/articles/';
+    public const ARTICLES_DIRECTORY = '/resources/articles/';
     private string $articlesDirectory;
 
     public function __construct(readonly protected CacheService $cacheService, string $projectDir)
     {
-        $this->articlesDirectory = $projectDir . self::ARTICLES_DIRECTORY;
+        $this->articlesDirectory = $projectDir.self::ARTICLES_DIRECTORY;
     }
 
     /**
@@ -47,7 +49,7 @@ class ArticlesService implements LoggerAwareInterface
             }
         }
 
-        throw new ArticleNotFoundException;
+        throw new ArticleNotFoundException();
     }
 
     public function getArticlesFinder(): Finder

@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Presentation\Console;
 
 use App\Application\ArticlesService;
@@ -15,21 +17,20 @@ class CacheAllArticlesCommand extends Command
     public function __construct(
         readonly protected ArticlesService $articlesService,
         readonly protected CacheService $cacheService
-    )
-    {
+    ) {
         parent::__construct($this->getName());
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln("Cache Store");
+        $output->writeln('Cache Store');
         $filePath = 'resources/articles/20220709_slug.md';
-        //dump($this->articlesService->getAll());
-        //$cachedArticle = $this->cacheService->storeItem($filePath);
-        //$output->writeln("cache write suceeded, trying to read");
-        //$cachedArticleCopy = $this->cacheService->getItem($filePath);
+        // dump($this->articlesService->getAll());
+        // $cachedArticle = $this->cacheService->storeItem($filePath);
+        // $output->writeln("cache write suceeded, trying to read");
+        // $cachedArticleCopy = $this->cacheService->getItem($filePath);
 
-        //dump($cachedArticle->getFrontMatter() == $cachedArticleCopy->getFrontMatter());
+        // dump($cachedArticle->getFrontMatter() == $cachedArticleCopy->getFrontMatter());
 
         return Command::SUCCESS;
     }

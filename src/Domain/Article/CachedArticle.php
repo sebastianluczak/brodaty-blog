@@ -1,8 +1,8 @@
 <?php
-declare(strict_types=1);
-namespace App\Domain\Article;
 
-use Symfony\Component\Finder\SplFileInfo;
+declare(strict_types=1);
+
+namespace App\Domain\Article;
 
 final class CachedArticle extends Article implements CachedArticleInterface
 {
