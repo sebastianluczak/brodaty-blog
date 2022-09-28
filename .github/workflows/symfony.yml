@@ -1,4 +1,4 @@
-name: Symfony
+name: Main branch tests
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  symfony-tests:
+  tests:
     runs-on: ubuntu-latest
     steps:
       # uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
