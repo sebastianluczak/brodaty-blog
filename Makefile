@@ -19,3 +19,7 @@ phpunit: ## Fires PHP Unit tests
 cs-fix: ## Runs PHP-CS-Fixer against ./src
 	@$(eval c=vendor/bin/php-cs-fixer fix src)
 	@$(PHP) $(c)
+
+phpstan: ## Fires PHPStan
+	@$(eval c=vendor/bin/phpstan analyse src -l max)
+	@$(PHP) $(c)

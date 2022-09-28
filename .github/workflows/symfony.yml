@@ -37,3 +37,5 @@ jobs:
       run: vendor/bin/phpunit
     - name: Test PHP-Arkitect rules
       run: vendor/bin/phparkitect -n check
+    - name: Test PHPStan on max level
+      run: vendor/bin/phpstan analyse src -l max
