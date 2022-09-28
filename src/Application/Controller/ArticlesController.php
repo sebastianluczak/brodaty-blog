@@ -15,7 +15,7 @@ class ArticlesController extends AbstractController
     public function index(ArticlesService $articlesService, Request $request): Response
     {
         $page = $request->get('page') ?? 1;
-        $articleListView = $articlesService->getAll($page);
+        $articleListView = $articlesService->getAll(intval($page));
 
         return $this->render('blog/index.html.twig', [
             'articles' => $articleListView->getArticles(),
@@ -31,7 +31,7 @@ class ArticlesController extends AbstractController
     public function indexByTag(string $tag, ArticlesService $articlesService, Request $request): Response
     {
         $page = $request->get('page') ?? 1;
-        $articleListView = $articlesService->getAllWithTag($tag, $page);
+        $articleListView = $articlesService->getAllWithTag($tag, intval($page));
 
         return $this->render('blog/index.html.twig', [
             'articles' => $articleListView->getArticles(),

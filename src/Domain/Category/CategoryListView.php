@@ -6,7 +6,14 @@ namespace App\Domain\Category;
 
 class CategoryListView
 {
+    /**
+     * @var array<int|string, mixed>
+     */
     private array $tags;
+
+    /**
+     * @var array<string, mixed>
+     */
     private array $counts;
 
     public function __construct()
@@ -25,11 +32,17 @@ class CategoryListView
         }
     }
 
+    /**
+     * @return array<int|string, mixed>
+     */
     public function getTags(): array
     {
         return $this->tags;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getCounts(): array
     {
         return $this->counts;

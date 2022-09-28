@@ -6,9 +6,16 @@ namespace App\Domain\Article;
 
 class Article implements ArticleInterface
 {
+    /**
+     * @var array<string, mixed>
+     */
     protected array $frontMatter;
+
     protected string $htmlContent;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getFrontMatter(): array
     {
         return $this->frontMatter;
@@ -21,6 +28,11 @@ class Article implements ArticleInterface
 
     public function hasTag(string $tag): bool
     {
-        return in_array($tag, $this->getFrontMatter()['tags']);
+        $tags = $this->getFrontMatter()['tags'];
+        if (is_array($tags)) {
+            return in_array($tag, $tags);
+        }
+
+        return false;
     }
 }

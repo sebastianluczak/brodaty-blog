@@ -6,6 +6,9 @@ namespace App\Domain\Article;
 
 interface ArticleInterface
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function getFrontMatter(): array;
 
     public function getHtmlContent(): string;

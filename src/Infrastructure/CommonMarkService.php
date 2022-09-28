@@ -35,6 +35,9 @@ class CommonMarkService
         return new MarkdownConverter($environment);
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     protected function getEnvironment(array $config): Environment
     {
         $environment = new Environment($config);
@@ -55,6 +58,9 @@ class CommonMarkService
         return $environment;
     }
 
+    /**
+     * @return array<string, mixed> $config
+     */
     protected function getConfig(): array
     {
         // Define your configuration, if needed
