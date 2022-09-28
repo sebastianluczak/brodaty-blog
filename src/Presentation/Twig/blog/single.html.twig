@@ -13,9 +13,11 @@
                     <div class="small text-muted">
                         <div class="btn btn-sm btn-secondary">{{ frontMatter['date']|raw }}</div>
                         {% for tag in frontMatter['tags'] %}
+                        <a class="article-tag-link" href="/tag/{{ tag }}">
                             <div class="btn btn-sm btn-primary">
-                                <a class="article-tag-link" href="/tag/{{ tag }}">{{ tag }}</a>
+                                {{ tag }}
                             </div>
+                        </a>
                         {% endfor %}
 
                     </div>

@@ -48,6 +48,16 @@ code {
     list-style: none;
 }
 
+.table-of-contents > li > a::before {
+    content: "→ ";
+}
+
+.table-of-contents > li > a {
+    color: #0e2231;
+    font-variant: small-caps;
+    text-decoration: none;
+}
+
 .card-img-top {
     max-height: 250px;
     object-fit: cover;
