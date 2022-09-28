@@ -23,8 +23,8 @@ class RebuiltArticlesCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Test');
-        // $cachedArticle = $this->cacheService->getItem('test');
+        $output->writeln('Clear whole cache.');
+        $this->cacheService->clear();
 
         return Command::SUCCESS;
     }

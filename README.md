@@ -1,6 +1,13 @@
 # brodaty-blog
+[![Main branch tests](https://github.com/sebastianluczak/brodaty-blog/actions/workflows/symfony.yml/badge.svg)](https://github.com/sebastianluczak/brodaty-blog/actions/workflows/symfony.yml)
+[![PHPStan](https://img.shields.io/badge/PHPStan-level%209-brightgreen.svg?style=flat)]()
 
-Simple Blog Engine based on pure Markdown files. Works without database, caches HTML templates from Markdown files. Fast and extendable.
+
+✒️Simple Blog Engine based on pure Markdown files. 
+
+💕 Works without database, caches HTML templates from Markdown files. 
+
+🚀 Fast and extendable.
 
 ![image](https://user-images.githubusercontent.com/1628839/190449430-e0601861-68fe-40e3-a1e1-572b63a5032e.png)
 

@@ -24,13 +24,7 @@ class CacheAllArticlesCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Cache Store');
-        $filePath = 'resources/articles/20220709_slug.md';
-        // dump($this->articlesService->getAll());
-        // $cachedArticle = $this->cacheService->storeItem($filePath);
-        // $output->writeln("cache write suceeded, trying to read");
-        // $cachedArticleCopy = $this->cacheService->getItem($filePath);
-
-        // dump($cachedArticle->getFrontMatter() == $cachedArticleCopy->getFrontMatter());
+        $this->articlesService->getAll();
 
         return Command::SUCCESS;
     }

@@ -29,7 +29,6 @@ class CommonMarkService
     public function init(): MarkdownConverter
     {
         $config = $this->getConfig();
-        // Configure the Environment with all the CommonMark and GFM parsers/renderers
         $environment = $this->getEnvironment($config);
 
         return new MarkdownConverter($environment);

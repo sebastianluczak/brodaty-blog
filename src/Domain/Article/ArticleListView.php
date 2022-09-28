@@ -54,7 +54,7 @@ class ArticleListView implements PaginatedViewInterface
     }
 
     /**
-     * @return array|ArticleInterface[]
+     * @return array<string|int, ArticleInterface>
      */
     public function getSide(): array
     {

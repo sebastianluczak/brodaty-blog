@@ -10,6 +10,7 @@ use App\Domain\Article\CachedArticle;
 use App\Infrastructure\CommonMarkService;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\MarkdownConverter;
+use LogicException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use SplFileInfo;
@@ -55,9 +56,7 @@ class CacheService implements LoggerAwareInterface
         /** @var SplFileInfo $file */
         foreach ($this->cachedArticlesFinder->files() as $file) {
             if ($file->getPathname() === $contentFilePath) {
-                if ($this->logger) {
-                    $this->logger->info('Item '.$filePath.' retrieved from cache as '.$contentFilePath);
-                }
+                $this->logger?->info('Item '.$filePath.' retrieved from cache as '.$contentFilePath);
                 $content = file_get_contents($contentFilePath);
                 $fmContent = file_get_contents($fmFilePath);
                 if ($fmContent && is_string($content)) {
@@ -80,21 +79,17 @@ class CacheService implements LoggerAwareInterface
         $contentFilePath = $this->projectDir.self::ARTICLES_CACHED_DIRECTORY.'/'.$fileName.'_content.cached';
         $fmFilePath = $this->projectDir.self::ARTICLES_CACHED_DIRECTORY.'/'.$fileName.'_fm.cached';
 
-        if ($this->logger) {
-            $this->logger->info('Item '.$filePath.' storing procedure start.');
-        }
+        $this->logger?->info('Item '.$filePath.' storing procedure start.');
 
         if ($this->hasItem($contentFilePath)) {
             $this->removeItem($filePath);
-            if ($this->logger) {
-                $this->logger->info('Item '.$filePath.' cache invalidated and stored once again.');
-            }
+            $this->logger?->info('Item '.$filePath.' cache invalidated and stored once again.');
         }
         $fileContents = file_get_contents($filePath);
         if (is_string($fileContents)) {
             $html = $this->markdownConverter->convert($fileContents);
         } else {
-            throw new \LogicException('Something wrong with cache.');
+            throw new LogicException('Something wrong with cache.');
         }
 
         if ($html instanceof RenderedContentWithFrontMatter) {
@@ -106,12 +101,10 @@ class CacheService implements LoggerAwareInterface
             file_put_contents($contentFilePath, $content);
             file_put_contents($fmFilePath, json_encode($frontMatters));
         } else {
-            throw new \LogicException('Bad format, check your configuration of CommonMark service.');
+            throw new LogicException('Bad format, check your configuration of CommonMark service.');
         }
 
-        if ($this->logger) {
-            $this->logger->info('Item '.$filePath.' stored as '.$contentFilePath.' in cache');
-        }
+        $this->logger?->info('Item '.$filePath.' stored as '.$contentFilePath.' in cache');
 
         return new CachedArticle($content, $frontMatters);
     }
@@ -123,6 +116,14 @@ class CacheService implements LoggerAwareInterface
             if ($file->getRealPath() === $filePath) {
                 unlink($filePath);
             }
+        }
+    }
+
+    public function clear(): void
+    {
+        /** @var SplFileInfo $file */
+        foreach ($this->cachedArticlesFinder->files() as $file) {
+            unlink($file->getRealPath());
         }
     }
 }
