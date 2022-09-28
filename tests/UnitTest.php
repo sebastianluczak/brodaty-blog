@@ -1,12 +1,11 @@
 <?php
 
-// tests/Service/NewsletterGeneratorTest.php
 namespace App\Tests;
 
 use App\Application\ArticlesService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UnitTests extends KernelTestCase
+class UnitTest extends KernelTestCase
 {
     public function testArticlesNotEmpty()
     {
