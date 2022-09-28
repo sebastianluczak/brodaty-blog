@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 img {
@@ -51,4 +51,8 @@ code {
 .card-img-top {
     max-height: 250px;
     object-fit: cover;
+}
+
+.article-title {
+    margin-top: 15px;
 }
