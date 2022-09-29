@@ -54,15 +54,10 @@
         <div class="col-lg-8">
             <!-- Categories widget-->
             <div class="card mb-1">
-                <div class="card-header">Categories & Links</div>
+                <div class="card-header">🔗 More on topic</div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <ul class="list-unstyled mb-0">
                                 {% for link in frontMatter['links'] %}
                                     <li><a href="{{ link }}">{{ link }}</a></li>
